@@ -1,7 +1,12 @@
+from permute import recursive
+
+
+# @recursive
 def test_single(depth: int) -> int:
     if depth == 10:
         return 0
     return test_single(depth+1) + 1
+
 
 def sum_results(results: list[int]) -> int:
     result: int = 0
@@ -9,6 +14,8 @@ def sum_results(results: list[int]) -> int:
         result += r
     return result
 
+
+@recursive
 def test_branching(depth: int) -> int:
     if depth == 7:
         return 1

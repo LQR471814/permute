@@ -1,9 +1,6 @@
 import ast
+import re
 from typing import Callable
-
-import cgen as c
-
-from typenames import collections
 
 
 def walk_tree(
@@ -16,8 +13,12 @@ def walk_tree(
         walk_tree(node, callback, depth+1)
 
 
-def parse_subscript(sub: ast.Subscript, name: str) -> c.Value:
+def parse_subscript(sub: ast.Subscript) -> str:
     slicetype = sub.value
     if isinstance(sub.slice, ast.Subscript):
         slicetype = parse_subscript(sub.slice)
-    return collections[slicetype.id](name)
+    return slicetype
+
+
+def unused_variable(name: str) -> bool:
+    return re.match(r'_+', name)
