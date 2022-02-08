@@ -3,6 +3,7 @@ import typing
 
 import cgen as c
 
+from permute.translate import Translator
 from permute.typenames import type_index
 from permute.utils import unused_variable, walk_tree
 
@@ -87,7 +88,9 @@ class FunctionBuilder:
                         case ast.Name(id=typename):
                             fields[name] = self.__assign_var(name, typename)
                         case ast.Subscript() as sub:
-                            fields[name] = self.__assign_var(name, sub.value.id)
+                            fields[name] = self.__assign_var(
+                                name, sub.value.id
+                            )
                 case ast.For(
                     target=var,
                     iter=ast.Call(func=ast.Name(id='range'))
@@ -98,3 +101,10 @@ class FunctionBuilder:
 
         walk_tree(self.source, visit_node)
         return c.Struct(self.__name("Stack"), fields.values())
+
+    def __build_body(self) -> c.FunctionBody:
+        pass
+
+
+class PermutativeTranslator(Translator):
+    pass

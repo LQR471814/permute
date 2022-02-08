@@ -9,7 +9,6 @@ def recursive(func):
 
 def build(source: str, name: str = "Permute"):
     tree = ast.parse(source)
-    # print(ast.dump(tree, indent="  "))
 
     if isinstance(tree, ast.Module):
         for statement in tree.body:
@@ -20,6 +19,7 @@ def build(source: str, name: str = "Permute"):
                         *_
                     ]
                 ):
+                    print(ast.dump(statement, indent="  "))
                     function = FunctionBuilder(statement, name)
                     logging.debug(
                         "="*30 +
