@@ -1,6 +1,7 @@
 import logging
 
 from permute.transpiler import *
+from permute.exceptions import *
 
 
 def recursive(func):
@@ -25,5 +26,6 @@ def build(source: str, name: str = "Permute"):
                         "="*30 +
                         f"\n{function.parameters}" +
                         f"\n{function.returns}" +
-                        f"\n{function.stack}"
+                        f"\n{function.stack}" +
+                        f"\n{function.body}"
                     )
